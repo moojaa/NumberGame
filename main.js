@@ -18,6 +18,7 @@ let resetButton = document.getElementById("reset-button");
 let chancesArea = document.getElementById("chances-area")
 let chances = 5
 let gameOver = false
+let win = false
 let history = []
 
 playButton.addEventListener("click",play);
@@ -46,18 +47,22 @@ function play(){
     chancesArea.textContent =`남은기회${chances}번`
 
     if(userValue > randomNum){
-        resultArea.textContent = "down"
+        resultArea.textContent = "다운"
     }else if(userValue < randomNum){
-        resultArea.textContent = "up"
+        resultArea.textContent = "업!"
     }else if(userValue == randomNum){
-        resultArea.textContent = "정답"
-        gameOver = true
+        win = true
     }
 
     history.push(userValue)
 
     if(chances<1){
         gameOver = true
+    }
+
+    if(win){
+        playButton.disabled = true
+        resultArea.textContent = "정답입니다!"
     }
 
     if(gameOver){
@@ -73,6 +78,7 @@ function reset(){
     resultArea.textContent =""
     chancesArea.textContent =`남은기회${chances}번`
     gameOver = false
+    win = false
     playButton.disabled = false
 }
 
